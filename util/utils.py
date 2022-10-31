@@ -211,7 +211,7 @@ def perform_val(multi_gpu, device, embedding_size, batch_size, backbone, carray,
     roc_curve = Image.open(buf)
     roc_curve_tensor = transforms.ToTensor()(roc_curve)
 
-    return accuracy.mean(), best_thresholds.mean(), roc_curve_tensor
+    return accuracy.mean(), best_thresholds.mean(), roc_curve_tensor, embeddings
 
 
 def buffer_val(writer, db_name, acc, best_threshold, roc_curve_tensor, epoch):
