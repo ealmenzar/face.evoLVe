@@ -74,17 +74,20 @@ def calculate_roc(thresholds, embeddings1, embeddings2, actual_issame, nrof_fold
 
         # Find the best threshold for the fold
         acc_train = np.zeros((nrof_thresholds))
-        for threshold_idx, threshold in enumerate(thresholds):
+        for threshold_idx, threshold in enumerate(thresholds):      # with this for we look for the best threshold value
             _, _, acc_train[threshold_idx] = calculate_accuracy(threshold, dist[train_set], actual_issame[train_set])
         best_threshold_index = np.argmax(acc_train)
-#         print('best_threshold_index', best_threshold_index, acc_train[best_threshold_index])
+#       print('best_threshold_index', best_threshold_index, acc_train[best_threshold_index])
         best_thresholds[fold_idx] = thresholds[best_threshold_index]
-        for threshold_idx, threshold in enumerate(thresholds):
+        # predict_issame = np.less(dist[train_set], thresholds[best_threshold_index])
+        # pred_iscorrect = predict_issame == actual_issame[train_set]
+        for threshold_idx, threshold in enumerate(thresholds):      # with this for we look for the best threshold value
             tprs[fold_idx, threshold_idx], fprs[fold_idx, threshold_idx], _ = calculate_accuracy(threshold,
                                                                                                  dist[test_set],
                                                                                                  actual_issame[
                                                                                                      test_set])
         _, _, accuracy[fold_idx] = calculate_accuracy(thresholds[best_threshold_index], dist[test_set], actual_issame[test_set])
+        # predict_issame = np.less(dist[train_set], thresholds[best_threshold_index])  ????
 
     tpr = np.mean(tprs, 0)
     fpr = np.mean(fprs, 0)
