@@ -74,6 +74,8 @@ def calculate_roc(thresholds, embeddings1, embeddings2, actual_issame, nrof_fold
 
         # Find the best threshold for the fold
         acc_train = np.zeros((nrof_thresholds))
+        print("dist[train_set] = ", dist[train_set])
+        print("dist[train_set].shape = ", dist[train_set].shape)
         for threshold_idx, threshold in enumerate(thresholds):      # with this for we look for the best threshold value
             _, _, acc_train[threshold_idx] = calculate_accuracy(threshold, dist[train_set], actual_issame[train_set])
         best_threshold_index = np.argmax(acc_train)
